@@ -10,3 +10,27 @@
 8. Agent Consideration
 9. AI Agent Application Development
 10. Evaluation & Debugging
+
+---
+
+```bash
+# 1. Git Cloning
+git clone
+
+# 2. Virtual Env 생성
+python3 -m vevn .venv
+
+# 3. Install Requirements
+pip install -r requirements.txt
+
+# 4. 환경 확인
+python -m pip list
+```
+
+---
+
+
+```bash
+# 
+pip freeze > requirements.txt
+```
