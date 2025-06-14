@@ -18,7 +18,7 @@
 git clone
 
 # 2. Virtual Env 생성
-python3 -m vevn .venv
+python3 -m venv .venv
 
 # 3. Install Requirements
 pip install -r requirements.txt
