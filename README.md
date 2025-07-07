@@ -7,11 +7,21 @@
 5. Workflow with LangGraph
 6. Multi-agent
 7. Agent Pattern
-8. Agent Consideration
-9. AI Agent Application Development
-10. Evaluation & Debugging
+8. AI Application Deployment
+9. Tests
+10. Future of AI Agents
 
 ---
+
+### OpenAI의 API 키 만들기
+
+1. https://openai.com/ 로 이동
+2. 회원가입
+3. 다음의 URL로 이동하여 API 키 생성(https://platform.openai.com/api-keys)
+4. + Create new secret key 클릭
+5. 이름에 적절한 이름을 지정하고 Create secret key 버튼 클릭
+6. 반드시 Usage에서 사용량을 주기적으로 확인해야 함
+
 
 ```bash
 # 1. Git Cloning
@@ -28,7 +38,6 @@ python -m pip list
 ```
 
 ---
-
 
 ```bash
 # 
