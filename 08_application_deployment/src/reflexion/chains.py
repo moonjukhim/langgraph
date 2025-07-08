@@ -16,15 +16,15 @@ actor_prompt_template = ChatPromptTemplate.from_messages(
     [
         (
             "system",
-            """You are expert researcher.
-Current time: {time}
+            """당신은 전문적인 연구자입니다.
+                Current time: {time}
 
-1. {first_instruction}
-2. Reflect and critique your answer. Be severe to maximize improvement.
-3. Recommend search queries to research information and improve your answer.""",
+                1. {first_instruction}
+                2. 답변을 되돌아보고 비판하세요. 개선을 극대화하기 위해 진지하게 비판하세요.
+                3. 정보를 확인하고 답변을 개선하기 위해 검색어를 추천하세요""",
         ),
         MessagesPlaceholder(variable_name="messages"),
-        ("system", "Answer the user's question above using the required format."),
+        ("system", "사용자의 질문에 필요한 형식을 사용하여 답변하세요."),
     ]
 ).partial(
     time=lambda: datetime.datetime.now().isoformat(),
@@ -32,18 +32,18 @@ Current time: {time}
 
 
 first_responder = actor_prompt_template.partial(
-    first_instruction="Provide a detailed ~250 word answer."
+    first_instruction="250개 단어 내로 자세한 답변을 하세요."
 ) | llm.bind_tools(tools=[AnswerQuestion], tool_choice="AnswerQuestion")
 validator = PydanticToolsParser(tools=[AnswerQuestion])
 
 
-revise_instructions = """Revise your previous answer using the new information.
-    - You should use the previous critique to add important information to your answer.
-        - You MUST include numerical citations in your revised answer to ensure it can be verified.
-        - Add a "References" section to the bottom of your answer (which does not count towards the word limit). In form of:
-            - [1] https://example.com
-            - [2] https://example.com
-    - You should use the previous critique to remove superfluous information from your answer and make SURE it is not more than 250 words.
+revise_instructions = """새로운 정보를 사용하여 이전 답변을 수정하세요.
+                        - 이전 비평을 활용하여 답변에 중요한 정보를 추가하세요.
+                            - 수정된 답변의 검증을 위해 반드시 인용 번호를 포함하세요.
+                            - 답변 하단에 "참고문헌" 섹션을 추가하세요(참고문헌은 단어 제한에 포함되지 않습니다). 다음 형식으로 작성하세요:
+                                - [1] https://example.com
+                                - [2] https://example.com
+                        - 이전 비평을 활용하여 답변에서 불필요한 정보를 제거하고 250 단어를 넘지 않도록 작성하세요.
 """
 
 
