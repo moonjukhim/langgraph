@@ -10,13 +10,23 @@ cd reflexion-agent
 Install dependencies:
 
 ```bash
-poetry install
+pip install -U "langgraph-cli[inmem]"
 ```
 
-Start the agent:
+Start the agent in local:
 
 ```bash
-poetry run python main.py
+langgraph dev
+```
+
+```text
+Ready!
+API: http://localhost:2024
+Docs: http://localhost:2024/docs
+```
+
+```bash
+python main.py
 ```
 
 ## Development Setup
