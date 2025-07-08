@@ -6,8 +6,6 @@ from dotenv import load_dotenv
 load_dotenv()
 
 async def invoke_retrieval_assistant():
-    # Initialize the LangGraph client
-    # Replace <DEPLOYMENT_URL> with your actual LangGraph deployment URL
     
     # deployment_url = "[PROJECT_ID].us.langgraph.app"
     deployment_url = "http://localhost:2024"
@@ -27,13 +25,11 @@ async def invoke_retrieval_assistant():
 
         # Prepare the input for the retrieval graph
         input_messages = [
-            {"role": "user", "content": "What is this document about?"}
+            {"role": "user", "content": "NPU에 대한 고충 영역을 식별하고 이를 해결하기 위해 자본 투자를 유치한 스타트업 목록을 나열하세요."}
         ]
         
         assistant_id = "agent"
 
-        # Invoke the assistant on the created thread
-        # Replace "retrieval_graph" with your actual assistant ID
         async for event in client.runs.stream(
             thread_id=thread["thread_id"],
             assistant_id=assistant_id,
@@ -48,6 +44,5 @@ async def invoke_retrieval_assistant():
     except Exception as e:
         print(f"An error occurred: {e}")
 
-# If you're running this in a script, you'll need to use asyncio to run the async function
 
 asyncio.run(invoke_retrieval_assistant())
