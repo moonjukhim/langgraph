@@ -7,7 +7,7 @@ from langchain_core.output_parsers import JsonOutputToolsParser, PydanticToolsPa
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_openai import ChatOpenAI
 
-from src.reflexion.cool_classes import AnswerQuestion, ReviseAnswer
+from src.reflexion.tool_classes import AnswerQuestion, ReviseAnswer
 
 llm = ChatOpenAI(model="gpt-4o-mini")
 parser = JsonOutputToolsParser(return_id=True)
