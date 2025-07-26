@@ -1,0 +1,33 @@
+# Core requirements
+python-dotenv 
+pydantic 
+fastapi 
+uvicorn 
+httpx 
+websockets 
+
+# A2A Protocol (will need to be replaced with actual A2A libraries once available)
+# assuming these would be installed from a custom source
+# Agent Frameworks
+google-adk 
+crewai 
+
+# UI
+gradio 
+
+# Testing
+pytest 
+pytest-asyncio 
+
+# Utilities
+numpy 
+pandas 
+matplotlib 
+
+openai
+langchain
+langchain-openai
+langchain-core
+langgraph
+langgraph-sdk
+langgraph-prebuilt
