@@ -4,13 +4,12 @@ import uuid
 import operator
 from typing import Any, Dict, List, Optional, TypedDict
 
-import pandas as pd
-from langchain_core.tools import Tool
+import pandas as pd  
+from langchain_core.tools import Tool 
 from langchain_core.messages import HumanMessage, AIMessage, BaseMessage
 from langchain_openai import ChatOpenAI
 from langgraph.graph import StateGraph, END
-from langgraph_prebuilt import chat_agent_node, tool_node, extract_tool_choice
-
+from langchain.agents import initialize_agent
 
 from common.a2a import A2ABaseServer
 from common.types import (
@@ -19,8 +18,37 @@ from common.types import (
 )
 
 
+
 class AgentState(TypedDict):
     messages: List[BaseMessage]
+
+
+def chat_agent_node(llm, tools=None):
+    agent_executor = initialize_agent(
+        tools=tools,
+        llm=llm,
+        agent_type="openai-functions",
+        verbose=True,
+    )
+
+    def node(state: AgentState) -> AgentState:
+        input_msg = state["messages"][-1].content
+        response = agent_executor.run(input_msg)
+        return {"messages": state["messages"] + [AIMessage(content=response)]}
+
+    return node
+
+
+def tool_node(tools: List[Tool]):
+    def node(state: AgentState) -> AgentState:
+        return state  # placeholder for actual tool use logic
+
+    return node
+
+
+def extract_tool_choice(state: AgentState) -> str:
+    last_msg = state["messages"][-1].content.lower()
+    return "tool" if "tool" in last_msg else "end"
 
 
 class DataAnalysisAgent(A2ABaseServer):
@@ -68,7 +96,6 @@ class DataAnalysisAgent(A2ABaseServer):
         workflow.add_node("agent", chat_agent_node(self.llm, tools=self.tools))
         workflow.add_node("tools", tool_node(self.tools))
 
-        # 최신 방식에서는 extract_tool_choice를 사용하여 분기
         workflow.add_conditional_edges("agent", extract_tool_choice, {
             "tool": "tools",
             "end": END
@@ -76,7 +103,6 @@ class DataAnalysisAgent(A2ABaseServer):
 
         workflow.add_edge("tools", "agent")
         workflow.set_entry_point("agent")
-        workflow.set_state_merge_config({"messages": operator.add})
 
         return workflow.compile()
 
@@ -140,7 +166,6 @@ class DataAnalysisAgent(A2ABaseServer):
             "results": []
         }
 
-    # Tool implementations
     def _load_csv(self, file_path: str) -> AIMessage:
         df = pd.read_csv(file_path)
         self._dataframe = df
