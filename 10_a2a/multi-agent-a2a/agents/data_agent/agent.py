@@ -17,8 +17,6 @@ from common.types import (
     Skill, Task, TaskState, TextPart
 )
 
-
-
 class AgentState(TypedDict):
     messages: List[BaseMessage]
 
