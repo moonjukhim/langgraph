@@ -165,9 +165,14 @@ class DataAnalysisAgent(A2ABaseServer):
         }
 
     def _load_csv(self, file_path: str) -> AIMessage:
-        df = pd.read_csv(file_path)
-        self._dataframe = df
-        return AIMessage(content=f"Loaded CSV file {file_path}")
+        if not os.path.isfile(file_path):
+            return AIMessage(content=f"Invalid file path: '{file_path}' — file not found.")
+        try:
+            df = pd.read_csv(file_path)
+            self._dataframe = df
+            return AIMessage(content=f"Loaded CSV file {file_path}")
+        except Exception as e:
+            return AIMessage(content=f"Error loading CSV: {str(e)}")
 
     def _load_json(self, file_path: str) -> AIMessage:
         return AIMessage(content=f"Loaded JSON file {file_path}")
