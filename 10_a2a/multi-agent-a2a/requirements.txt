@@ -23,6 +23,7 @@ pytest-asyncio
 numpy 
 pandas 
 matplotlib 
+dotenv
 
 openai
 langchain
