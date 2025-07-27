@@ -4,3 +4,4 @@
 # 
 demo/
 multi-agent-a2a/__pycache__
+multi-agent-a2a/*/*__pycache__
