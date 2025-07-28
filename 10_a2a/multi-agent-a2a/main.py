@@ -47,10 +47,8 @@ def parse_args():
 
 def main():
     """Run the A2A multi-agent system."""
-    # Load environment variables
+
     load_dotenv()
-    
-    # Parse command line arguments
     args = parse_args()
     
     # Get API keys and model configuration from environment
