@@ -3,8 +3,7 @@
 ##### 1. 필요사항
 
   - Python 3.12 이상 버전
-  - UV (pip install pip)
-  - Agent server (sample)
+  - Virtual Environment(or UV)
   - OpenAI API Key
 
 
