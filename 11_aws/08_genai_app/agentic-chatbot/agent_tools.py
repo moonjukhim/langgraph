@@ -31,7 +31,7 @@ def generate_random_15digit():
 def invoke_bedrock_agent(inputText, sessionId, trace_container, endSession=False):
     # Invoke the Bedrock agent with the given input text
     response = bedrock_agent_runtime.invoke_flow(
-        flowIdentifier="BNVV2KBP8Z",
+        flowIdentifier="[YOUR_FLOW_ID]",
         flowAliasIdentifier="TSTALIASID",
         inputs = [
             { 
